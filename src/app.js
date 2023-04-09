@@ -17,10 +17,13 @@ app.post("/sign-up",(req, res) => {
 
 app.post("/tweets",(req, res) => {
     const { username } = req.body;
-    console.log(res)
-    tweets.push(req.body);
-
-    res.send("OK");
+    const user = users.find((user) => user.username === username);
+    if(user){
+        tweets.push(req.body);
+        res.send("OK");
+    }else{
+        res.send("UNAUTHORIZED");
+    }
 });
 
 app.get("/tweets",(req, res) => {
