@@ -58,4 +58,22 @@ app.get("/tweets",(req, res) => {
     res.status(201).send(lastTweets);
 });
 
+app.get("/tweets/:username", (req, res) => {
+    const user = req.params.username;
+    const userTweets = [];
+    const userAvatar = users.find((userNow) => userNow.username === user);
+    for(let i = 0; i < tweets.length; i++){
+        if(tweets[i].username === user){
+            const tweet = { 
+                username: tweets[i].username,
+                avatar: userAvatar.avatar,
+                tweet: tweets[i].tweet
+            };
+            userTweets.push(tweet);
+        }
+    }
+
+    res.send(userTweets);
+});
+
 app.listen(5000);
