@@ -12,14 +12,25 @@ app.post("/sign-up",(req, res) => {
     const { username, avatar } = req.body;
     users.push({ username, avatar });
 
+    if(username === "" || typeof(username) !== "string" || avatar === "" || typeof(avatar) !== "string"){
+        res.status(400).send("Todos os campos são obrigatórios!");
+        return;
+    }
+
     res.send("OK");
 });
 
 app.post("/tweets",(req, res) => {
-    const { username } = req.body;
+    const { username, tweet } = req.body;
     const user = users.find((user) => user.username === username);
+    
+    if(username === "" || typeof(username) !== "string" || tweet === "" || typeof(tweet) !== "string"){
+        res.status(400).send("Todos os campos são obrigatórios!");
+        return;
+    }
+
     if(user){
-        tweets.push(req.body);
+        tweets.push({ username, tweet });
         res.send("OK");
     }else{
         res.send("UNAUTHORIZED");
