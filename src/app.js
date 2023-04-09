@@ -17,7 +17,7 @@ app.post("/sign-up",(req, res) => {
         return;
     }
 
-    res.send("OK");
+    res.status(201).send("OK");
 });
 
 app.post("/tweets",(req, res) => {
@@ -31,9 +31,9 @@ app.post("/tweets",(req, res) => {
 
     if(user){
         tweets.push({ username, tweet });
-        res.send("OK");
+        res.status(201).send("OK");
     }else{
-        res.send("UNAUTHORIZED");
+        res.status(401).send("UNAUTHORIZED");
     }
 });
 
@@ -55,7 +55,7 @@ app.get("/tweets",(req, res) => {
         }
     }
 
-    res.send(lastTweets);
+    res.status(201).send(lastTweets);
 });
 
 app.listen(5000);
